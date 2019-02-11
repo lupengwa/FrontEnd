@@ -3,6 +3,8 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {User, IUserResponse} from '../user.class';
+import {WeeklyDuty} from "../component/model/weekly-duty.model";
+import {Coworker} from "../component/model/coworker.model";
 
 @Component({
   selector: 'app-email-form',
@@ -17,72 +19,82 @@ export class EmailFormComponent implements OnInit {
   dinnerLeaderControl = new FormControl();
   cleanOneControl = new FormControl();
   cleanTwoControl = new FormControl();
-  options: User[] = [
-    {name: 'Mary', email:'Mary@gmail.com'},
-    {name: 'Shelley', email:'shelley@gmail.com'},
-    {name: 'Igor',email:'Igor@gmail.com'}
+  options: Coworker[] = [
+    {id:1, name: 'Mary', email:'Mary@gmail.com'},
+    {id:2, name: 'Shelley', email:'shelley@gmail.com'},
+    {id:3, name: 'Igor',email:'Igor@gmail.com'}
   ];
-  programfilteredOptions: Observable<User[]>;
+  programfilteredOptions: Observable<Coworker[]>;
   worhipFilteredOptions: Observable<User[]>;
   pianistFilteredOptions: Observable<User[]>;
   dinnerfilteredOptions: Observable<User[]>;
   cleanOneFilteredOptions: Observable<User[]>;
   cleanTwoFilteredOptions: Observable<User[]>;
 
+  public weeklyDuty : WeeklyDuty;
+  public coWorker : Coworker;
+  public name:string;
+
+
+
 
 
 
   ngOnInit() {
+    this.weeklyDuty = new WeeklyDuty();
+    this.coWorker = new Coworker();
+    this.name = "";
+
     this.programfilteredOptions = this.programLeaderControl.valueChanges
       .pipe(
-        startWith<string | User>(''),
+        startWith<string | Coworker>(''),
         map(value => typeof value === 'string' ? value : value.name),
         map(name => name ? this._filter(name) : this.options.slice())
       );
 
-    this.worhipFilteredOptions= this.worshipLeaderControl.valueChanges
-      .pipe(
-        startWith<string | User>(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
-
-    this.pianistFilteredOptions= this.pianistControl.valueChanges
-      .pipe(
-        startWith<string | User>(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
-    this.dinnerfilteredOptions = this.dinnerLeaderControl.valueChanges
-      .pipe(
-        startWith<string | User>(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
-
-    this.cleanOneFilteredOptions= this.cleanOneControl.valueChanges
-      .pipe(
-        startWith<string | User>(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
-
-    this.cleanTwoFilteredOptions= this.cleanTwoControl.valueChanges
-      .pipe(
-        startWith<string | User>(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
+    // this.worhipFilteredOptions= this.worshipLeaderControl.valueChanges
+    //   .pipe(
+    //     startWith<string | User>(''),
+    //     map(value => typeof value === 'string' ? value : value.name),
+    //     map(name => name ? this._filter(name) : this.options.slice())
+    //   );
+    //
+    // this.pianistFilteredOptions= this.pianistControl.valueChanges
+    //   .pipe(
+    //     startWith<string | User>(''),
+    //     map(value => typeof value === 'string' ? value : value.name),
+    //     map(name => name ? this._filter(name) : this.options.slice())
+    //   );
+    // this.dinnerfilteredOptions = this.dinnerLeaderControl.valueChanges
+    //   .pipe(
+    //     startWith<string | User>(''),
+    //     map(value => typeof value === 'string' ? value : value.name),
+    //     map(name => name ? this._filter(name) : this.options.slice())
+    //   );
+    //
+    // this.cleanOneFilteredOptions= this.cleanOneControl.valueChanges
+    //   .pipe(
+    //     startWith<string | User>(''),
+    //     map(value => typeof value === 'string' ? value : value.name),
+    //     map(name => name ? this._filter(name) : this.options.slice())
+    //   );
+    //
+    // this.cleanTwoFilteredOptions= this.cleanTwoControl.valueChanges
+    //   .pipe(
+    //     startWith<string | User>(''),
+    //     map(value => typeof value === 'string' ? value : value.name),
+    //     map(name => name ? this._filter(name) : this.options.slice())
+    //   );
 
 
 
   }
 
-  displayFn(user?: User): string | undefined {
+  displayFn(user?: Coworker): string | undefined {
     return user ? user.name : undefined;
   }
 
-  private _filter(name: string): User[] {
+  private _filter(name: string): Coworker[] {
     const filterValue = name
 
     return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
