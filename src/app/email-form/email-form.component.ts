@@ -24,6 +24,9 @@ export class EmailFormComponent implements OnInit {
     {id:2, name: 'Shelley', email:'shelley@gmail.com'},
     {id:3, name: 'Igor',email:'Igor@gmail.com'}
   ];
+
+  // options2: string[] = ['One', 'Two', 'Three'];
+  // programfilteredOptions2: Observable<string[]>;
   programfilteredOptions: Observable<Coworker[]>;
   worhipFilteredOptions: Observable<User[]>;
   pianistFilteredOptions: Observable<User[]>;
@@ -33,7 +36,7 @@ export class EmailFormComponent implements OnInit {
 
   public weeklyDuty : WeeklyDuty;
   public coWorker : Coworker;
-  public name:string;
+
 
 
 
@@ -43,13 +46,13 @@ export class EmailFormComponent implements OnInit {
   ngOnInit() {
     this.weeklyDuty = new WeeklyDuty();
     this.coWorker = new Coworker();
-    this.name = "";
+
 
     this.programfilteredOptions = this.programLeaderControl.valueChanges
       .pipe(
         startWith<string | Coworker>(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
+        
+        map(value => value.name ?this._filter(value.name))
       );
 
     // this.worhipFilteredOptions= this.worshipLeaderControl.valueChanges
@@ -94,10 +97,10 @@ export class EmailFormComponent implements OnInit {
     return user ? user.name : undefined;
   }
 
-  private _filter(name: string): Coworker[] {
-    const filterValue = name
+  private _filter(name: string): string[] {
+    const filterValue = name.toLowerCase();
 
-    return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.options2.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
 }

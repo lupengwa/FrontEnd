@@ -4,10 +4,10 @@
       <tr>
         <td>
           <mat-form-field class="email-full-width">
-            <input placeholder="Programe Leader" aria-label="Assignee" [(ngModel)]= "name"  [formControl]="programLeaderControl" [matAutocomplete]="auto">
+            <input matInput placeholder="Programe Leader" type = "text" aria-label="Assignee"  [formControl]="programLeaderControl" [matAutocomplete]="auto">
               <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
                 <mat-option *ngFor="let option of programfilteredOptions | async" [value]="option">
-                  {{option.name}}
+                  {{option}}
                 </mat-option>
               </mat-autocomplete>
           </mat-form-field>
