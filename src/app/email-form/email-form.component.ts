@@ -25,14 +25,12 @@ export class EmailFormComponent implements OnInit {
     {id:3, name: 'Igor',email:'Igor@gmail.com'}
   ];
 
-  // options2: string[] = ['One', 'Two', 'Three'];
-  // programfilteredOptions2: Observable<string[]>;
   programfilteredOptions: Observable<Coworker[]>;
-  worhipFilteredOptions: Observable<User[]>;
-  pianistFilteredOptions: Observable<User[]>;
-  dinnerfilteredOptions: Observable<User[]>;
-  cleanOneFilteredOptions: Observable<User[]>;
-  cleanTwoFilteredOptions: Observable<User[]>;
+  worhipFilteredOptions: Observable<Coworker[]>;
+  pianistFilteredOptions: Observable<Coworker[]>;
+  dinnerfilteredOptions: Observable<Coworker[]>;
+  cleanOneFilteredOptions: Observable<Coworker[]>;
+  cleanTwoFilteredOptions: Observable<Coworker[]>;
 
   public weeklyDuty : WeeklyDuty;
   public coWorker : Coworker;
@@ -44,50 +42,46 @@ export class EmailFormComponent implements OnInit {
 
 
   ngOnInit() {
-    this.weeklyDuty = new WeeklyDuty();
-    this.coWorker = new Coworker();
-
-
     this.programfilteredOptions = this.programLeaderControl.valueChanges
       .pipe(
-        startWith<string | Coworker>(''),
-        
-        map(value => value.name ?this._filter(value.name))
+        startWith<string | Coworker>(""),
+        map(value => typeof value === 'string'?value:value.name),
+        map(name => this._filter(name))
       );
 
-    // this.worhipFilteredOptions= this.worshipLeaderControl.valueChanges
-    //   .pipe(
-    //     startWith<string | User>(''),
-    //     map(value => typeof value === 'string' ? value : value.name),
-    //     map(name => name ? this._filter(name) : this.options.slice())
-    //   );
-    //
-    // this.pianistFilteredOptions= this.pianistControl.valueChanges
-    //   .pipe(
-    //     startWith<string | User>(''),
-    //     map(value => typeof value === 'string' ? value : value.name),
-    //     map(name => name ? this._filter(name) : this.options.slice())
-    //   );
-    // this.dinnerfilteredOptions = this.dinnerLeaderControl.valueChanges
-    //   .pipe(
-    //     startWith<string | User>(''),
-    //     map(value => typeof value === 'string' ? value : value.name),
-    //     map(name => name ? this._filter(name) : this.options.slice())
-    //   );
-    //
-    // this.cleanOneFilteredOptions= this.cleanOneControl.valueChanges
-    //   .pipe(
-    //     startWith<string | User>(''),
-    //     map(value => typeof value === 'string' ? value : value.name),
-    //     map(name => name ? this._filter(name) : this.options.slice())
-    //   );
-    //
-    // this.cleanTwoFilteredOptions= this.cleanTwoControl.valueChanges
-    //   .pipe(
-    //     startWith<string | User>(''),
-    //     map(value => typeof value === 'string' ? value : value.name),
-    //     map(name => name ? this._filter(name) : this.options.slice())
-    //   );
+    this.worhipFilteredOptions= this.worshipLeaderControl.valueChanges
+      .pipe(
+        startWith<string | Coworker>(""),
+        map(value => typeof value === 'string'?value:value.name),
+        map(name => this._filter(name))
+      );
+
+    this.pianistFilteredOptions= this.pianistControl.valueChanges
+      .pipe(
+        startWith<string | Coworker>(""),
+        map(value => typeof value === 'string'?value:value.name),
+        map(name => this._filter(name))
+      );
+    this.dinnerfilteredOptions = this.dinnerLeaderControl.valueChanges
+      .pipe(
+        startWith<string | Coworker>(""),
+        map(value => typeof value === 'string'?value:value.name),
+        map(name => this._filter(name))
+      );
+
+    this.cleanOneFilteredOptions= this.cleanOneControl.valueChanges
+      .pipe(
+        startWith<string | Coworker>(""),
+        map(value => typeof value === 'string'?value:value.name),
+        map(name => this._filter(name))
+      );
+
+    this.cleanTwoFilteredOptions= this.cleanTwoControl.valueChanges
+      .pipe(
+        startWith<string | Coworker>(""),
+        map(value => typeof value === 'string'?value:value.name),
+        map(name => this._filter(name))
+      );
 
 
 
@@ -97,10 +91,10 @@ export class EmailFormComponent implements OnInit {
     return user ? user.name : undefined;
   }
 
-  private _filter(name: string): string[] {
+  private _filter(name: string): Coworker[] {
     const filterValue = name.toLowerCase();
 
-    return this.options2.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
 }
