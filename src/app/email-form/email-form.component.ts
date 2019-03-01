@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {User, IUserResponse} from '../user.class';
 import {WeeklyDuty} from "../component/model/weekly-duty.model";
 import {Coworker} from "../component/model/coworker.model";
 
@@ -26,26 +25,18 @@ export class EmailFormComponent implements OnInit {
   ];
 
   programfilteredOptions: Observable<Coworker[]>;
+  debugOptions: Coworker[];
   worhipFilteredOptions: Observable<Coworker[]>;
   pianistFilteredOptions: Observable<Coworker[]>;
   dinnerfilteredOptions: Observable<Coworker[]>;
   cleanOneFilteredOptions: Observable<Coworker[]>;
   cleanTwoFilteredOptions: Observable<Coworker[]>;
 
-  public weeklyDuty : WeeklyDuty;
-  public coWorker : Coworker;
-
-
-
-
-
-
 
   ngOnInit() {
     this.programfilteredOptions = this.programLeaderControl.valueChanges
       .pipe(
-        startWith<string | Coworker>(""),
-        map(value => typeof value === 'string'?value:value.name),
+        startWith<string>(""),
         map(name => this._filter(name))
       );
 
@@ -93,7 +84,9 @@ export class EmailFormComponent implements OnInit {
 
   private _filter(name: string): Coworker[] {
     const filterValue = name.toLowerCase();
-
+    const debugName = this.options[0].name.toLowerCase();
+    const includes = this.options[0].name.toLowerCase().includes(filterValue);
+    this.debugOptions = this.options.filter(option => option.name.toLowerCase().includes(filterValue));
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
