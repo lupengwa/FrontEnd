@@ -4,8 +4,8 @@
       <tr>
         <td>
           <mat-form-field class="email-full-width">
-            <input matInput placeholder="Programe Leader" aria-label="Assignee"  [formControl]="programLeaderControl" [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete" >
+            <input matInput placeholder="Programe Leader" aria-label="Assignee"  [formControl]="programLeaderControl" [matAutocomplete]="programAuto">
+              <mat-autocomplete #programAuto="matAutocomplete"  [displayWith]="displayFn">
                 <mat-option *ngFor="let option of programfilteredOptions | async" [value]="option">
                   {{option.name}}
                 </mat-option>
@@ -15,8 +15,8 @@
 
         <td>
           <mat-form-field class="email-full-width">
-            <input matInput type="text" placeholder="Worship Leader" aria-label="Assignee" matInput [formControl]="worshipLeaderControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" >
+            <input matInput type="text" placeholder="Worship Leader" aria-label="Assignee" matInput [formControl]="worshipLeaderControl" [matAutocomplete]="worshipAuto">
+            <mat-autocomplete #worshipAuto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let option of worhipFilteredOptions | async" [value]="option">
                 {{option.name}}
               </mat-option>
@@ -26,8 +26,8 @@
 
         <td>
           <mat-form-field class="email-full-width">
-            <input matInput type="text" placeholder="Pianist" aria-label="Assignee" matInput [formControl]="pianistControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <input matInput type="text" placeholder="Pianist" aria-label="Assignee" matInput [formControl]="pianistControl" [matAutocomplete]="pianistAuto">
+            <mat-autocomplete #pianistAuto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let option of pianistFilteredOptions | async" [value]="option">
                 {{option.name}}
               </mat-option>
@@ -37,8 +37,8 @@
 
         <td>
           <mat-form-field class="email-full-width">
-            <input matInput type="text" placeholder="Dinner" aria-label="Assignee" matInput [formControl]="dinnerLeaderControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <input matInput type="text" placeholder="Dinner" aria-label="Assignee" matInput [formControl]="dinnerControl" [matAutocomplete]="dinnerAuto">
+            <mat-autocomplete #dinnerAuto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let option of dinnerfilteredOptions | async" [value]="option">
                 {{option.name}}
               </mat-option>
@@ -48,8 +48,8 @@
 
         <td>
           <mat-form-field class="email-full-width">
-            <input matInput type="text" placeholder="Cleaning No.1" aria-label="Assignee" matInput [formControl]="cleanOneControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <input matInput type="text" placeholder="Cleaning No.1" aria-label="Assignee" matInput [formControl]="cleanOneControl" [matAutocomplete]="cleanOneAuto">
+            <mat-autocomplete #cleanOneAuto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let option of cleanOneFilteredOptions | async" [value]="option">
                 {{option.name}}
               </mat-option>
@@ -59,8 +59,8 @@
 
         <td>
           <mat-form-field class="email-full-width">
-            <input matInput type="text" placeholder="Cleaning No.2" aria-label="Assignee" matInput [formControl]="cleanTwoControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <input matInput type="text" placeholder="Cleaning No.2" aria-label="Assignee" matInput [formControl]="cleanTwoControl" [matAutocomplete]="cleanTwoAuto">
+            <mat-autocomplete #cleanTwoAuto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let option of cleanTwoFilteredOptions | async" [value]="option">
                 {{option.name}}
               </mat-option>
