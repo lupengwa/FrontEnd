@@ -5,8 +5,12 @@ import {HttpClient} from "@angular/common/http";
 import {API_PATH} from "../core/rest-api-path";
 import {catchError, map} from "rxjs/operators";
 
+interface Coworkers {
+  result: Coworker[];
+}
 @Injectable()
 export class CoworkerService {
+  coworkerUrl = 'assets/coworkers.json';
   private coWorkerListSubject: BehaviorSubject<Coworker[]>  = new BehaviorSubject<Coworker[]>([]);
 
   constructor(private http: HttpClient) { }
@@ -17,10 +21,15 @@ export class CoworkerService {
     return this.coWorkerListSubject.asObservable();
   }
 
+
+  getList() : Observable<Coworker[]>{
+    return this.http.get<Coworkers>(this.coworkerUrl).pipe(map ( res => res.result || []));
+  }
+
   public fetchAllCoworkers() {
     this.http.get(API_PATH.Coworker).pipe(
       map(res => res as Coworker[]),
-      catchError(err => throwError(err || 'Server Error'))
+      (error) -> console.log(error)
     ).subscribe(data => {
       this.coWorkerListSubject.next(data)
     });

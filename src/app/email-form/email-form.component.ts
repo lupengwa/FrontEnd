@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {WeeklyDuty} from "../component/model/weekly-duty.model";
 import {Coworker} from "../component/model/coworker.model";
+import {CoworkerService} from "../component/services/coworker.service";
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-email-form',
@@ -12,20 +13,22 @@ import {Coworker} from "../component/model/coworker.model";
 })
 export class EmailFormComponent implements OnInit {
 
+  constructor(private coworkerService: CoworkerService) {}
+
   programLeaderControl = new FormControl();
   worshipLeaderControl = new FormControl();
   pianistControl = new FormControl();
   dinnerControl = new FormControl();
   cleanOneControl = new FormControl();
   cleanTwoControl = new FormControl();
-  options: Coworker[] = [
-    {id:1, name: 'Mary', email:'Mary@gmail.com'},
-    {id:2, name: 'Shelley', email:'shelley@gmail.com'},
-    {id:3, name: 'Igor',email:'Igor@gmail.com'}
-  ];
+  // options: Coworker[] = [
+  //   {id:1, name: 'Mary', email:'Mary@gmail.com'},
+  //   {id:2, name: 'Shelley', email:'shelley@gmail.com'},
+  //   {id:3, name: 'Igor',email:'Igor@gmail.com'}
+  // ];
+  options: Coworker[] = [];
 
   programfilteredOptions: Observable<Coworker[]>;
-  debugOptions: Coworker[];
   worhipFilteredOptions: Observable<Coworker[]>;
   pianistFilteredOptions: Observable<Coworker[]>;
   dinnerfilteredOptions: Observable<Coworker[]>;
@@ -34,6 +37,7 @@ export class EmailFormComponent implements OnInit {
 
 
   ngOnInit() {
+    this.coworkerService.getList().subscribe(result => {this.options = _.clone_Deep(result)})
     this.programfilteredOptions = this.programLeaderControl.valueChanges
       .pipe(
         startWith<string | Coworker>(''),
