@@ -29,7 +29,7 @@ export class CoworkerService {
   public fetchAllCoworkers() {
     this.http.get(API_PATH.Coworker).pipe(
       map(res => res as Coworker[]),
-      (error) -> console.log(error)
+
     ).subscribe(data => {
       this.coWorkerListSubject.next(data)
     });
