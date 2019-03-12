@@ -12,7 +12,7 @@ interface Coworkers {
 export class CoworkerService {
   coworkerUrl = 'assets/coworkers.json';
   private coWorkerListSubject: BehaviorSubject<Coworker[]>  = new BehaviorSubject<Coworker[]>([]);
-
+  public coworkers :Coworker[];
   constructor(private http: HttpClient) { }
 
   public get coworkerList() : Coworker[] {return this.coWorkerListSubject.getValue()};
@@ -22,8 +22,8 @@ export class CoworkerService {
   }
 
 
-  getList() : Observable<Coworker[]>{
-    return this.http.get<Coworkers>(this.coworkerUrl).pipe(map ( res => res.result || []));
+  getList() : Coworker[]{
+    return this.http.get(this.coworkerUrl).subscribe(result => this.coworkers = result as Coworker[]);
   }
 
   public fetchAllCoworkers() {
