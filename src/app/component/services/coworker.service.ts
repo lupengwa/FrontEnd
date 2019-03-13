@@ -5,14 +5,15 @@ import {HttpClient} from "@angular/common/http";
 import {API_PATH} from "../core/rest-api-path";
 import {catchError, map} from "rxjs/operators";
 
-interface Coworkers {
-  result: Coworker[];
+
+export class Coworkers {
+  results: Coworker[];
 }
 @Injectable()
 export class CoworkerService {
   coworkerUrl = 'assets/coworkers.json';
   private coWorkerListSubject: BehaviorSubject<Coworker[]>  = new BehaviorSubject<Coworker[]>([]);
-  public coworkers :Coworker[];
+
   constructor(private http: HttpClient) { }
 
   public get coworkerList() : Coworker[] {return this.coWorkerListSubject.getValue()};
@@ -22,8 +23,8 @@ export class CoworkerService {
   }
 
 
-  getList() : Coworker[]{
-    return this.http.get(this.coworkerUrl).subscribe(result => this.coworkers = result as Coworker[]);
+  getList() : Observable<Coworkers>{
+    return this.http.get<Coworkers>(this.coworkerUrl);
   }
 
   public fetchAllCoworkers() {
