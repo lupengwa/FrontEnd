@@ -12,6 +12,8 @@ export class Coworkers {
 @Injectable()
 export class CoworkerService {
   coworkerUrl = 'assets/coworkers.json';
+  uri = 'http://localhost:8090';
+  private coworkers : Observable<Coworkers>;
   private coWorkerListSubject: BehaviorSubject<Coworker[]>  = new BehaviorSubject<Coworker[]>([]);
 
   constructor(private http: HttpClient) { }
@@ -19,15 +21,20 @@ export class CoworkerService {
   public get coworkerList() : Coworker[] {return this.coWorkerListSubject.getValue()};
 
   public getCoworkerObservable(): Observable<Coworker[]> {
+    this.fetchAllCoworkers();
     return this.coWorkerListSubject.asObservable();
   }
 
 
   getList() : Observable<Coworkers>{
-    return this.http.get<Coworkers>(this.coworkerUrl);
+    if(!this.coworkers) {
+      this.coworkers = this.http.get<Coworkers>(this.coworkerUrl);
+    }
+    return this.coworkers;
   }
 
   public fetchAllCoworkers() {
+
     this.http.get(API_PATH.Coworker).pipe(
       map(res => res as Coworker[]),
 

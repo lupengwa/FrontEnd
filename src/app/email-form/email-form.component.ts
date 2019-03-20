@@ -37,9 +37,11 @@ export class EmailFormComponent implements OnInit {
 
 
   ngOnInit() {
+    this.coworkerService.getCoworkerObservable().subscribe(data => {this.options = _.cloneDeep(data)
+    console.log("input");
+    console.log(data)}
+    );
     this.coworkerService.getList().subscribe(result => {
-      console.log(result)
-      this.options = result.results;
       this.programfilteredOptions = this.programLeaderControl.valueChanges
         .pipe(
           startWith<string | Coworker>(''),
