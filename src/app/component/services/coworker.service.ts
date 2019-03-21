@@ -38,6 +38,7 @@ export class CoworkerService {
     this.http.get(API_PATH.Coworker).pipe(
       map(res => res as Coworker[]),
 
+
     ).subscribe(data => {
       this.coWorkerListSubject.next(data)
     });

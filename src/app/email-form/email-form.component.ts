@@ -37,52 +37,51 @@ export class EmailFormComponent implements OnInit {
 
 
   ngOnInit() {
-    this.coworkerService.getCoworkerObservable().subscribe(data => {this.options = _.cloneDeep(data)
-    console.log("input");
-    console.log(data)}
+    this.coworkerService.getCoworkerObservable().subscribe(data => {
+        this.options = _.cloneDeep(data);
+        this.programfilteredOptions = this.programLeaderControl.valueChanges
+          .pipe(
+            startWith<string | Coworker>(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name  => name ? this._filter(name):this.options.slice())
+          );
+
+        this.worhipFilteredOptions= this.worshipLeaderControl.valueChanges
+          .pipe(
+            startWith<string | Coworker>(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name  => name ? this._filter(name):this.options.slice())
+          );
+        //
+        this.pianistFilteredOptions= this.pianistControl.valueChanges
+          .pipe(
+            startWith<string | Coworker>(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name  => name ? this._filter(name):this.options.slice())
+          );
+        this.dinnerfilteredOptions = this.dinnerControl.valueChanges
+          .pipe(
+            startWith<string | Coworker>(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name  => name ? this._filter(name):this.options.slice())
+          );
+
+        this.cleanOneFilteredOptions= this.cleanOneControl.valueChanges
+          .pipe(
+            startWith<string | Coworker>(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name  => name ? this._filter(name):this.options.slice())
+          );
+
+        this.cleanTwoFilteredOptions= this.cleanTwoControl.valueChanges
+          .pipe(
+            startWith<string | Coworker>(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name  => name ? this._filter(name):this.options.slice())
+          );
+    }
     );
-    this.coworkerService.getList().subscribe(result => {
-      this.programfilteredOptions = this.programLeaderControl.valueChanges
-        .pipe(
-          startWith<string | Coworker>(''),
-          map(value => typeof value === 'string' ? value : value.name),
-          map(name  => name ? this._filter(name):this.options.slice())
-        );
 
-      this.worhipFilteredOptions= this.worshipLeaderControl.valueChanges
-        .pipe(
-          startWith<string | Coworker>(''),
-          map(value => typeof value === 'string' ? value : value.name),
-          map(name  => name ? this._filter(name):this.options.slice())
-        );
-      //
-      this.pianistFilteredOptions= this.pianistControl.valueChanges
-        .pipe(
-          startWith<string | Coworker>(''),
-          map(value => typeof value === 'string' ? value : value.name),
-          map(name  => name ? this._filter(name):this.options.slice())
-        );
-      this.dinnerfilteredOptions = this.dinnerControl.valueChanges
-        .pipe(
-          startWith<string | Coworker>(''),
-          map(value => typeof value === 'string' ? value : value.name),
-          map(name  => name ? this._filter(name):this.options.slice())
-        );
-
-      this.cleanOneFilteredOptions= this.cleanOneControl.valueChanges
-        .pipe(
-          startWith<string | Coworker>(''),
-          map(value => typeof value === 'string' ? value : value.name),
-          map(name  => name ? this._filter(name):this.options.slice())
-        );
-
-      this.cleanTwoFilteredOptions= this.cleanTwoControl.valueChanges
-        .pipe(
-          startWith<string | Coworker>(''),
-          map(value => typeof value === 'string' ? value : value.name),
-          map(name  => name ? this._filter(name):this.options.slice())
-        );
-    })
 
 
 
