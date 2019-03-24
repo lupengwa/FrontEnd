@@ -9,9 +9,7 @@ export class WeeklyDuty {
   public cleaning2: Coworker;
 
   constructor() {
-    this.programLeader = new Coworker();
-    this.worshipLeader = new Coworker();
-    this.pianist = new Coworker();
+
   }
 
 }

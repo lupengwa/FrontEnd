@@ -5,6 +5,7 @@ import {map, startWith} from 'rxjs/operators';
 import {Coworker} from "../component/model/coworker.model";
 import {CoworkerService} from "../component/services/coworker.service";
 import * as _ from "lodash";
+import {WeeklyDuty} from "../component/model/weekly-duty.model";
 
 @Component({
   selector: 'app-email-form',
@@ -35,10 +36,13 @@ export class EmailFormComponent implements OnInit {
   cleanOneFilteredOptions: Observable<Coworker[]>;
   cleanTwoFilteredOptions: Observable<Coworker[]>;
 
+  weekDuty: WeeklyDuty;
+
 
   ngOnInit() {
     this.coworkerService.getCoworkerObservable().subscribe(data => {
         this.options = _.cloneDeep(data);
+        this.weekDuty = new WeeklyDuty();
         this.programfilteredOptions = this.programLeaderControl.valueChanges
           .pipe(
             startWith<string | Coworker>(''),
@@ -81,11 +85,12 @@ export class EmailFormComponent implements OnInit {
           );
     }
     );
+  }
 
-
-
-
-
+  assignValue(input: any, target:any) {
+    target = input;
+    console.log(this.weekDuty.programLeader);
+    console.log(this.weekDuty.pianist);
   }
 
   displayFn(user?: Coworker): string | undefined {
