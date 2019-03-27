@@ -9,7 +9,12 @@ export class WeeklyDuty {
   public cleaning2: Coworker;
 
   constructor() {
-
+    this.programLeader = new Coworker();
+    this.worshipLeader = new Coworker();
+    this.pianist = new Coworker();
+    this.chef = new Coworker();
+    this.cleaning1 = new Coworker();
+    this.cleaning2 = new Coworker();
   }
 
 }

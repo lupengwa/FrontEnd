@@ -87,10 +87,18 @@ export class EmailFormComponent implements OnInit {
     );
   }
 
-  assignValue(input: any, target:any) {
-    target = input;
+  postWeeklyDuty() {
+
+  }
+
+  assignValue(input: Coworker, target: Coworker) {
+    Object.assign(target, input);
     console.log(this.weekDuty.programLeader);
+    console.log(this.weekDuty.worshipLeader);
     console.log(this.weekDuty.pianist);
+    console.log(this.weekDuty.chef);
+    console.log(this.weekDuty.cleaning1);
+    console.log(this.weekDuty.cleaning2);
   }
 
   displayFn(user?: Coworker): string | undefined {
@@ -100,6 +108,7 @@ export class EmailFormComponent implements OnInit {
   private _filter(name: string): Coworker[] {
     const filterValue = name.toLowerCase();
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+
   }
 
 }
