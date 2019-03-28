@@ -88,7 +88,7 @@ export class EmailFormComponent implements OnInit {
   }
 
   postWeeklyDuty() {
-
+    this.coworkerService.addWeeklyDuty(this.weekDuty);
   }
 
   assignValue(input: Coworker, target: Coworker) {

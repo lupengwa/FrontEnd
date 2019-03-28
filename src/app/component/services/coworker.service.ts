@@ -30,8 +30,8 @@ export class CoworkerService {
   }
 
   public fetchAllCoworkers() {
-
-    this.http.get(API_PATH.Coworker).pipe(
+    let weekDutyHeader =  new HttpHeaders({"Content-Type" : 'application/json'});
+    this.http.get(API_PATH.Coworker, {headers:weekDutyHeader}).pipe(
       map(res => res as Coworker[]),
 
 
@@ -41,8 +41,11 @@ export class CoworkerService {
   }
 
   public addWeeklyDuty(weeklyDuty: WeeklyDuty) {
-    this.weeklyDutyTmp = new WeeklyDutyTmp(weeklyDuty.programLeader.id, weeklyDuty.worshipLeader.id, weeklyDuty.pianist.id, weeklyDuty.chef.id, weeklyDuty.cleaning1.id, weeklyDuty.cleaning2.id);
 
+    this.weeklyDutyTmp = new WeeklyDutyTmp(weeklyDuty.programLeader.id, weeklyDuty.worshipLeader.id, weeklyDuty.pianist.id, weeklyDuty.chef.id, weeklyDuty.cleaning1.id, weeklyDuty.cleaning2.id);
+     let weekDutyHeader =  new HttpHeaders({"Content-Type" : 'application/json'});
+
+    this.http.post(API_PATH.SaveWeekDuty, JSON.stringify(this.weeklyDutyTmp), {headers:weekDutyHeader}).subscribe();
 
   }
 

@@ -1,4 +1,3 @@
-import {Coworker} from "./coworker.model";
 
 export class WeeklyDutyTmp {
   public programLeader: number;
