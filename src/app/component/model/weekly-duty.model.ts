@@ -7,6 +7,7 @@ export class WeeklyDuty {
   public chef: Coworker;
   public cleaning1: Coworker;
   public cleaning2: Coworker;
+  public dutyDate: Date;
 
   constructor() {
     this.programLeader = new Coworker();
@@ -15,6 +16,7 @@ export class WeeklyDuty {
     this.chef = new Coworker();
     this.cleaning1 = new Coworker();
     this.cleaning2 = new Coworker();
+    this.dutyDate = null;
   }
 
 }

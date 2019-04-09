@@ -4,6 +4,13 @@
     <table>
       <tr>
         <td>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" [(ngModel)]= "this.weekDuty.dutyDate" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </td>
+        <td>
           <mat-form-field class="email-full-width">
             <input matInput placeholder="Programe Leader" aria-label="Assignee"  [formControl]="programLeaderControl" [matAutocomplete]="programAuto">
               <mat-autocomplete #programAuto="matAutocomplete" (optionSelected)='assignValue($event.option.value, this.weekDuty.programLeader)'  [displayWith]="displayFn">
