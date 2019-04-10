@@ -14,6 +14,7 @@ import {CoworkerService} from "./component/services/coworker.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatDatepickerModule, MatNativeDateModule} from "@angular/material";
 import {CustomizedDatepicker} from "./common/customized-datepicker";
+import {MomentDateModule} from "@angular/material-moment-adapter";
 
 
 
@@ -38,12 +39,17 @@ import {CustomizedDatepicker} from "./common/customized-datepicker";
     MatTableModule,
     FlexLayoutModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MomentDateModule
 
   ],
   providers: [CoworkerService,HttpClient],
   bootstrap: [AppComponent, CustomizedDatepicker],
-  exports: [MatDatepickerModule, MatNativeDateModule]
+  exports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MomentDateModule
+  ]
 
 })
 export class AppModule { }
